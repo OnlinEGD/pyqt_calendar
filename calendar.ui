@@ -7,7 +7,7 @@
     <x>0</x>
     <y>0</y>
     <width>416</width>
-    <height>378</height>
+    <height>570</height>
    </rect>
   </property>
   <property name="font">
@@ -54,7 +54,7 @@ color: rgb(172, 172, 172)</string>
       <x>10</x>
       <y>240</y>
       <width>391</width>
-      <height>71</height>
+      <height>82</height>
      </rect>
     </property>
     <layout class="QVBoxLayout" name="verticalLayout">
@@ -87,7 +87,24 @@ color: rgb(172, 172, 172)</string>
        </property>
       </widget>
      </item>
+     <item>
+      <widget class="QPushButton" name="pushButton_2">
+       <property name="text">
+        <string>Zobacz wydarzenia</string>
+       </property>
+      </widget>
+     </item>
     </layout>
+   </widget>
+   <widget class="QListWidget" name="listWidget">
+    <property name="geometry">
+     <rect>
+      <x>10</x>
+      <y>330</y>
+      <width>391</width>
+      <height>192</height>
+     </rect>
+    </property>
    </widget>
   </widget>
   <widget class="QMenuBar" name="menubar">
