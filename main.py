@@ -12,10 +12,10 @@ class Main(QMainWindow, Ui_MainWindow):
         self.pushButton.clicked.connect(self.set_event)
         self.pushButton_2.clicked.connect(self.get_events)
         self.listWidget.itemClicked.connect(self.delete_item)
-    
+        self.selected_date_str = ""
+
     def selected_date(self, date):
-        self.selected_date = date.toString("yyyy-MM-dd")
-        print("Wybrana data:", self.selected_date)
+        self.selected_date_str = date.toString("yyyy-MM-dd")
 
     def set_event(self):
         conn = sqlite3.connect('pyqt_calendar.db')
@@ -26,7 +26,7 @@ class Main(QMainWindow, Ui_MainWindow):
                 event_date DATE
             )''')
         sql = "INSERT INTO events (event_name, event_date) VALUES (?, ?)"
-        values = (self.lineEdit.text(), self.selected_date)
+        values = (self.lineEdit.text(), self.selected_date_str)
         cursor.execute(sql, values)
         conn.commit()
         conn.close()
@@ -43,6 +43,7 @@ class Main(QMainWindow, Ui_MainWindow):
         rows = cursor.fetchall()
         conn.commit()
         conn.close()
+        self.listWidget.clear()
         for row in rows:
             result = '  '.join(str(element) for element in row)
             self.listWidget.addItem(result)
@@ -74,4 +75,3 @@ if __name__ == '__main__':
     main = Main()
     main.show()
     sys.exit(app.exec_())
-
