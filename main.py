@@ -3,7 +3,6 @@ from calendar_1 import Ui_MainWindow
 import sys
 from PyQt5.QtWidgets import QApplication, QMainWindow, QMessageBox, QColorDialog, QListWidgetItem
 import sqlite3
-from PyQt5.QtCore import Qt
 from PyQt5.QtGui import QColor
 
 class Main(QMainWindow, Ui_MainWindow):
@@ -14,6 +13,7 @@ class Main(QMainWindow, Ui_MainWindow):
         self.pushButton.clicked.connect(self.set_event)
         self.pushButton_2.clicked.connect(self.get_events)
         self.pushButton_3.clicked.connect(self.show_color_dialog)
+        self.pushButton_4.clicked.connect(self.sort_events)
         self.listWidget.itemClicked.connect(self.delete_item)
         self.selected_date_str = ""
         self.color = "#ffffff"
@@ -84,6 +84,29 @@ class Main(QMainWindow, Ui_MainWindow):
 
     def show_color_dialog(self):
         self.color = QColorDialog.getColor()
+
+    def sort_events(self):
+        conn = sqlite3.connect('pyqt_calendar.db')
+        cursor = conn.cursor()
+        cursor.execute('''CREATE TABLE IF NOT EXISTS events (
+                id INTEGER PRIMARY KEY AUTOINCREMENT,
+                event_name TEXT,
+                event_date DATE,
+                color TEXT
+            )''')
+        cursor.execute("SELECT * FROM events ORDER BY event_date")
+        rows = cursor.fetchall()
+        conn.commit()
+        conn.close()
+        self.listWidget.clear()
+        for row in rows:
+            print(row)
+            event_item = QListWidgetItem()
+            event_item.setText('  '.join(str(element) for element in row[0:3]))
+            color = row[3]
+            event_item.setForeground(QColor(color))
+            self.listWidget.addItem(event_item)
+
 
 if __name__ == '__main__':
     app = QApplication(sys.argv)

@@ -7,7 +7,7 @@
     <x>0</x>
     <y>0</y>
     <width>420</width>
-    <height>570</height>
+    <height>568</height>
    </rect>
   </property>
   <property name="font">
@@ -103,6 +103,13 @@ color: rgb(172, 172, 172)</string>
      </item>
      <item>
       <widget class="QListWidget" name="listWidget"/>
+     </item>
+     <item>
+      <widget class="QPushButton" name="pushButton_4">
+       <property name="text">
+        <string>Posortuj chronologicznie</string>
+       </property>
+      </widget>
      </item>
     </layout>
    </widget>
